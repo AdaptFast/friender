@@ -1,0 +1,136 @@
+<html>
+<head>
+    <title>ISSS 606 - Social Analytics and Application Project - Group 2 </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../Stylesheets/custom.css">
+    <script type="text/javascript" src="../Scripts/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+</head>
+
+<body>
+<!-- Common header section-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="text-align:center;">   
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="methodology_proposal.html">Approach</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="results_topics.html">Results</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="resource.html">Resource</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- Body Section-->
+<div style="padding-top:25px;padding-bottom:25px;">
+  <ul class="nav nav-tabs">
+        <li class="nav-link" style="width:24%"><a href="results_topics.html">Topics & Sentiments</a></li>
+        <li class="nav-link" style="width:24%"><a href="results_usertopics.html">User Mappings to Topics</a></li>
+        <li class="nav-link " style="width:24%"><a href="results_clustering.html">User Profile Segmentation</a></li>
+        <li class="nav-link active" style="width:24%"><a href="results_ui.html">New User Registration</a></li>
+  </ul>
+</div>
+
+<div style="text-align:center; padding-bottom:20px;">
+    <h4>New to Twitter in Singapore?</h4>
+    <h6><i>Tell us what you like and dislike and we'll recommend some people for you!</i></h6>
+</div>
+
+<div style="width:10%; float:left;">
+    &nbsp;
+</div>
+<div style="width:40%; float:left; border-right: solid 1px Black;" cellspacing="10" cellpadding="10">
+    <table style="width:100%;">
+        <tr>
+            <td style="width:50%; text-align:center;">
+                <div id="TopicCard" class="card card-default" style="background-color:#ffd6cc;">
+                    <div class="card-body">Topic 1</div>
+                </div>
+            </td>
+            <td style="width:25%; text-align:center;">
+                <a id="imgThumbsUp" style="cursor:pointer;"><img src = "../images/thumbsup.png" width="20"/></a>
+            </td>
+            <td style="width:25%;">
+                <a id="imgThumbsDown" style="cursor:pointer;"><img src = "../images/thumbsdown.png" width="20"/></a>
+            </td>   
+        </tr>
+                <tr>
+            <td style="width:50%; text-align:center;">
+                <div id="TopicCard" class="card card-default" style="background-color:#b3ffb3;">
+                    <div class="card-body">Topic 2</div>
+                </div>
+            </td>
+            <td style="width:25%; text-align:center;">
+                <a id="imgThumbsUp" style="cursor:pointer;"><img src = "../images/thumbsup.png" width="20"/></a>
+            </td>
+            <td style="width:25%;">
+                <a id="imgThumbsDown" style="cursor:pointer;"><img src = "../images/thumbsdown.png" width="20"/></a>
+            </td>   
+        </tr>
+                <tr>
+            <td style="width:50%; text-align:center;">
+                <div id="TopicCard" class="card card-default" style="background-color:#ffd1b3;">
+                    <div class="card-body">Topic 3</div>
+                </div>
+            </td>
+            <td style="width:25%; text-align:center;">
+                <a id="imgThumbsUp" style="cursor:pointer;"><img src = "../images/thumbsup.png" width="20"/></a>
+            </td>
+            <td style="width:25%;">
+                <a id="imgThumbsDown" style="cursor:pointer;"><img src = "../images/thumbsdown.png" width="20"/></a>
+            </td>   
+        </tr>
+                <tr>
+            <td style="width:50%; text-align:center;">
+                <div id="TopicCard" class="card card-default" style="background-color:#c2d6d6;">
+                    <div class="card-body">Topic 4</div>
+                </div>
+            </td>
+            <td style="width:25%; text-align:center;">
+                <a id="imgThumbsUp" style="cursor:pointer;"><img src = "../images/thumbsup.png" width="20"/></a>
+            </td>
+            <td style="width:25%;">
+                <a id="imgThumbsDown" style="cursor:pointer;"><img src = "../images/thumbsdown.png" width="20"/></a>
+            </td>   
+        </tr>
+                <tr>
+            <td style="width:50%; text-align:center;">
+                <div id="TopicCard" class="card card-default" style="background-color:#99b3ff;">
+                    <div class="card-body">Topic 5</div>
+                </div>
+            </td>
+            <td style="width:25%; text-align:center;">
+                <a id="imgThumbsUp" style="cursor:pointer;"><img src = "../images/thumbsup.png" width="20"/></a>
+            </td>
+            <td style="width:25%;">
+                <a id="imgThumbsDown" style="cursor:pointer;"><img src = "../images/thumbsdown.png" width="20"/></a>
+            </td>   
+        </tr>
+    </table>
+    <div style="padding-top:20px; float:center; text-align:center;">
+        <button type="button" class="btn" style="border:solid 1px Black;">Submit</button>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+</script>
