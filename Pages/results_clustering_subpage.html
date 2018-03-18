@@ -1,0 +1,193 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../Stylesheets/custom.css">
+<script src="../Scripts/d3.js"></script>
+
+<div class="container" style="margin:25px">
+    <div class="row">
+        <div class="col-3">
+            <div>
+                <p class="text-md-left">Select the clusters for analysis</p>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="cluster_01" checked>
+                <label class="form-check-label" for="cluster_01">Cluster 01</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="2" id="cluster_02" checked>
+                <label class="form-check-label" for="cluster_02">Cluster 02</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="3" id="cluster_03" checked>
+                <label class="form-check-label" for="cluster_03">Cluster 03</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="4" id="cluster_04" checked>
+                <label class="form-check-label" for="cluster_04">Cluster 04</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="5" id="cluster_05" checked>
+                <label class="form-check-label" for="cluster_05">Cluster 05</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="6" id="cluster_06" checked>
+                <label class="form-check-label" for="cluster_06">Cluster 06</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="7" id="cluster_07" checked>
+                <label class="form-check-label" for="cluster_07">Cluster 07</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="8" id="cluster_08" checked>
+                <label class="form-check-label" for="cluster_08">Cluster 08</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="9" id="cluster_09" checked>
+                <label class="form-check-label" for="cluster_09">Cluster 09</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="10" id="cluster_10" checked>
+                <label class="form-check-label" for="cluster_10">Cluster 10</label>
+            </div>
+        </div>
+
+        <style>
+            .links line {
+                stroke: #999;
+                stroke-opacity: 0.6;
+            }
+
+            .nodes circle {
+                stroke: #fff;
+                stroke-width: 1.5px;
+            }
+        </style>
+        <div class="col-6">
+            <svg width="960" height="600"></svg>
+            <script type="application/javascript">
+
+                var svg = d3.select("svg"),
+                    width = +svg.attr("width"),
+                    height = +svg.attr("height");
+
+                var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+                var simulation = d3.forceSimulation()
+                    .force("link", d3.forceLink().id(function (d) {
+                        return d.id;
+                    }))
+                    .force("charge", d3.forceManyBody())
+                    .force("center", d3.forceCenter(width / 2, height / 2));
+
+                d3.json("../Data/miserables.json", function (error, graph) {
+                    if (error) throw error;
+
+                    var link = svg.append("g")
+                        .attr("class", "links")
+                        .selectAll("line")
+                        .data(graph.links)
+                        .enter().append("line")
+                        .attr("stroke-width", function (d) {
+                            return Math.sqrt(d.value);
+                        });
+
+                    var node = svg.append("g")
+                        .attr("class", "nodes")
+                        .selectAll("circle")
+                        .data(graph.nodes)
+                        .enter().append("circle")
+                        .attr("r", 5)
+                        .attr("fill", function (d) {
+                            return color(d.group);
+                        })
+                        .call(d3.drag()
+                            .on("start", dragstarted)
+                            .on("drag", dragged)
+                            .on("end", dragended));
+
+                    node.append("title")
+                        .text(function (d) {
+                            return d.id;
+                        });
+
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+
+                    simulation.force("link")
+                        .links(graph.links);
+
+                    function ticked() {
+                        link
+                            .attr("x1", function (d) {
+                                return d.source.x;
+                            })
+                            .attr("y1", function (d) {
+                                return d.source.y;
+                            })
+                            .attr("x2", function (d) {
+                                return d.target.x;
+                            })
+                            .attr("y2", function (d) {
+                                return d.target.y;
+                            });
+
+                        node
+                            .attr("cx", function (d) {
+                                return d.x;
+                            })
+                            .attr("cy", function (d) {
+                                return d.y;
+                            });
+                    }
+                });
+
+                function dragstarted(d) {
+                    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                }
+
+                function dragged(d) {
+                    d.fx = d3.event.x;
+                    d.fy = d3.event.y;
+                }
+
+                function dragended(d) {
+                    if (!d3.event.active) simulation.alphaTarget(0);
+                    d.fx = null;
+                    d.fy = null;
+                }
+
+                <!-- Code for detecting changes on the checkbox selection -->
+                <!-- TODO: There seems to be a need to repeat the code above -->
+                d3.selectAll(".form-check-input").on("change", update);
+
+                function update() {
+                    var choices = [];
+
+                    d3.selectAll(".form-check-input").each(function (d) {
+                        cb = d3.select(this);
+                        if (cb.property("checked")) {
+                            choices.push(cb.property("value"));
+                        }
+                    });
+
+                    if (choices.length > 0) {
+                        newData = graph
+                            .data(nodes.group)
+                            .filter(function (d, i) {
+                                return choices.includes(d);
+                            });
+                    } else {
+                        newData = graph;
+                    }
+
+
+                }
+
+            </script>
+        </div>
+    </div>
+</div>
