@@ -3,14 +3,17 @@
     <title>ISSS 606 - Social Analytics and Application Project - Group 2 </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.css">
     <link rel="stylesheet" type="text/css" href="../Stylesheets/custom.css">
     <script type="text/javascript" src="../Scripts/d3.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../Scripts/results_topics.js"></script>
 </head>
 
-<body>
+<body style="font-size: 18px;">
 <!-- Common header section-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="text-align:center;">   
+    <a class="navbar-brand" href="#">Friender</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,33 +30,23 @@
                 <a class="nav-link" href="results_topics.html">Results</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="resource.html">Resource</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contact Us</a>
             </li>
         </ul>
     </div>
 </nav>
 
-
 <!-- Body Section-->
 <div style="padding-top:25px;padding-bottom:25px;">
-  <ul class="nav nav-tabs">
-        <li class="nav-link active" style="width:24%"><a href="results_topics.html">Topics & Sentiments</a></li>
+    <ul class="nav nav-tabs">
+        <li class="nav-link active" style="width:24%"><a href="results_topics.html">Topics Modeling</a></li>
         <li class="nav-link" style="width:24%"><a href="results_usertopics.html">User Mappings to Topics</a></li>
         <li class="nav-link" style="width:24%"><a href="results_clustering.html">User Profile Segmentation</a></li>
         <li class="nav-link" style="width:24%"><a href="results_ui.html">New User Registration</a></li>
-  </ul>
+    </ul>
 </div>
-
-<div style="width:90%; padding-left:5%;">
-    <iframe src="results_topics_subgraph.html" frameborder="0" width="100%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-
+<div style="padding-left:10%;width:90%;">
+    <div id="ldavis_el295282819869416928415123318"></div>
 </div>
 </body>
 </html>
-
-<script type="text/javascript">
-
-</script>
