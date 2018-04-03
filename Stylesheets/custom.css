@@ -18,3 +18,7 @@
 .nav-link {
     color: #212529;
 }
+
+.card .card-default {
+    height:40px;
+}

@@ -1,3 +1,8 @@
+var inputVector = [];
+var userList = [];
+var userSimilarities = [];
+
+
 function ToggleSelection(element, indicator)
 {
     if (indicator == 1)
@@ -20,7 +25,7 @@ function ToggleSelection(element, indicator)
     
 function ClickSubmit()
 {
-    var selections = [];
+    inputVector = [];
     var score = 0;
     var topicTable = document.getElementById("tblTopics");
     for (var i = 0, row; row = topicTable.rows[i]; i++) {
@@ -31,12 +36,56 @@ function ClickSubmit()
             if(col.getElementsByTagName("a")[0].getElementsByTagName("img")[0].getAttribute("src").endsWith("thumbsdown_selected.png"))
                 score = score - 1;
        }
-        selections.push(score);           
+        inputVector.push(score);           
     }
-    var outputText = "<h3>You selected:</h3><br/><br/><br/><ul>"
-    for (var i = 0; i < selections.length; i++)
+    inputVector = VectorNormalization(Math.min(...inputVector), Math.max(...inputVector), inputVector)
+    CalculateUserSimilarity();
+}
+
+function VectorNormalization(min, max, vector)
+{
+    for (var i = 0; i < vector.length; i++)
     {
-        outputText = outputText + "<li> Topic " + String(i+1) + " -> Score " + String(selections[i]) + "</li>";
-    }        
-    document.getElementById("outputResult").innerHTML = outputText + "</ul>";
+        vector[i] = (vector[i] - min)/(max - min);
+    }
+    return vector;
+}
+
+d3.csv("https://raw.githubusercontent.com/angad-sr/Dummy/master/User Table.csv", function(error, data) {
+      data.forEach(function(d) {
+        userList.push(d);
+      });
+});
+
+
+function CalculateUserSimilarity() {
+    userSimilarities = [];
+    for(i = 0; i < userList.length; i++)
+    {
+        userVector = [userList[i].International_Trends, userList[i].Marina_Bay, userList[i].Job_Postings, userList[i].Celebratory_Events, 
+        userList[i].K_pop, userList[i].Daily_Life_Schedule, userList[i].New_Year_Happenings, userList[i].Job_Hunting];
+        var score = ComputeCosineSimilarity(inputVector, userVector);
+        userSimilarities.push({'User':userList[i].user-screen-name, 'Similarity':score});
+    }
+    console.log(userSimilarities);
+}
+
+function VectorDotProduct(vecA, vecB) {
+	var product = 0;
+	for (var i = 0; i < vecA.length; i++) {
+		product += vecA[i] * vecB[i];
+	}
+	return product;
+}
+
+function VectorMagnitude(vec) {
+	var sum = 0;
+	for (var i = 0; i < vec.length; i++) {
+		sum += vec[i] * vec[i];
+	}
+	return Math.sqrt(sum);
+}
+
+function ComputeCosineSimilarity(vecA, vecB) {
+	return VectorDotProduct(vecA, vecB) / (VectorMagnitude(vecA) * VectorMagnitude(vecB));
 }

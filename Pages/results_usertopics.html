@@ -44,10 +44,33 @@
         <li class="nav-link" style="width:24%"><a href="results_ui.html">New User Registration</a></li>
   </ul>
 </div>
-
+<div>
+    <div style="float:left;width:75%;padding-left:5%;border-right:solid 1px grey;">
+        <iframe id="frameBipartite" src="Subpages/Bipartite-1.html" style="width:100%;height:500px;border:none;"></iframe>
+    </div>
+    <div style="float:left;width:18%; padding-left:2%;margin-right:-20px;%;">
+        <span style="font-size:14px;">
+        This tab shows the most active users on Twitter (top 1%)<br/><br/>
+        Click on any user segment to analyze their weighted sentiments towards these topics.
+        </span>
+        <select style="margin-top:10px;" onchange="SwitchBipartite(this.value)">
+            <option value="1">Users 1 to 25</option>
+            <option value="2">Users 26 to 50</option>
+            <option value="3">Users 51 onwards</option
+        </select>
+    </div>
+</div>
 </body>
 </html>
 
 <script type="text/javascript">
-
+function SwitchBipartite(val) {
+    if(val == 1)
+        document.getElementById("frameBipartite").setAttribute("src", "Subpages/Bipartite-1.html");
+    if(val == 2)
+        document.getElementById("frameBipartite").setAttribute("src", "Subpages/Bipartite-2.html");
+    if(val == 3)
+        document.getElementById("frameBipartite").setAttribute("src", "Subpages/Bipartite-3.html");
+    document.getElementById('frameBipartite').contentWindow.location.reload();
+}
 </script>
