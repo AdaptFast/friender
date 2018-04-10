@@ -137,7 +137,7 @@ function network(data, prev, index, expand) {
     v = expand[v] ? nm[e.target.name] : nm[v];
     var i = (u<v ? u+"|"+v : v+"|"+u),
         l = lm[i] || (lm[i] = {source:u, target:v, size:0});
-    l.size += 1;
+    l.size += 0.75;
   }
   for (i in lm) { links.push(lm[i]); }
 
@@ -198,7 +198,7 @@ var data = {'nodes': [{'group': 0, 'name': 'shaunymacattack'}, {'group': 0, 'nam
 
   vis.attr("opacity", 1e-6)
     .transition()
-      .duration(1000)
+      .duration(2000)
       .attr("opacity", 2);
 
 function init() {
@@ -232,7 +232,7 @@ function init() {
     .linkStrength(function(l, i) {
     return 1;
     })
-    .gravity(0.05)   // gravity+charge tweaked to ensure good 'grouped' view (e.g. green group not smack between blue&orange, ...
+    .gravity(0.75)   // gravity+charge tweaked to ensure good 'grouped' view (e.g. green group not smack between blue&orange, ...
     .charge(-500)    // ... charge is important to turn single-linked groups to the outside
     .friction(0.5)   // friction adjusted to get dampened display: less bouncy bouncy ball [Swedish Chef, anyone?]
       .start();
