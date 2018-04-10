@@ -33,15 +33,15 @@ line.link {
   <body>
     <script type="text/javascript">
 var width = 800,     // svg width
-    height = 500,     // svg height
+    height = 450,     // svg height
     dr = 4,      // default point radius
-    off = 15,    // cluster hull offset
+    off = 0,    // cluster hull offset
     expand = {}, // expanded clusters
     data, net, force, hullg, hull, linkg, link, nodeg, node;
 
 var curve = d3.svg.line()
     .interpolate("cardinal-closed")
-    .tension(.85);
+    .tension(.55);
 
 var fill = d3.scale.category20();
 
@@ -198,7 +198,7 @@ var data = {'nodes': [{'group': 0, 'name': 'shaunymacattack'}, {'group': 0, 'nam
   vis.attr("opacity", 1e-6)
     .transition()
       .duration(1000)
-      .attr("opacity", 1);
+      .attr("opacity", 2);
 
 function init() {
   if (force) force.stop();
@@ -233,7 +233,7 @@ function init() {
     })
     .gravity(0.05)   // gravity+charge tweaked to ensure good 'grouped' view (e.g. green group not smack between blue&orange, ...
     .charge(-500)    // ... charge is important to turn single-linked groups to the outside
-    .friction(0.5)   // friction adjusted to get dampened display: less bouncy bouncy ball [Swedish Chef, anyone?]
+    .friction(0.2)   // friction adjusted to get dampened display: less bouncy bouncy ball [Swedish Chef, anyone?]
       .start();
 
   hullg.selectAll("path.hull").remove();
