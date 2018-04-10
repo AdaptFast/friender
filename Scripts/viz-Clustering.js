@@ -2704,7 +2704,6 @@
     }
     return [ a, c ];
   };
-
   d3.sum = function(array, f) {
     var s = 0, n = array.length, a, i = -1;
     if (arguments.length === 1) {

@@ -221,20 +221,20 @@ function init() {
     // nodes of another group or other group node or between two group nodes.
     //
     // The latter was done to keep the single-link groups ('blue', rose, ...) close.
-    return 30 +
-      Math.min(20 * Math.min((n1.size || (n1.group != n2.group ? n1.group_data.size : 0)),
+    return 45 +
+      Math.min(30 * Math.min((n1.size || (n1.group != n2.group ? n1.group_data.size : 0)),
                              (n2.size || (n1.group != n2.group ? n2.group_data.size : 0))),
-           -30 +
-           30 * Math.min((n1.link_count || (n1.group != n2.group ? n1.group_data.link_count : 0)),
+           -45 +
+           45 * Math.min((n1.link_count || (n1.group != n2.group ? n1.group_data.link_count : 0)),
                          (n2.link_count || (n1.group != n2.group ? n2.group_data.link_count : 0))),
-           100);
+           150);
     })
     .linkStrength(function(l, i) {
     return 1;
     })
     .gravity(0.05)   // gravity+charge tweaked to ensure good 'grouped' view (e.g. green group not smack between blue&orange, ...
     .charge(-500)    // ... charge is important to turn single-linked groups to the outside
-    .friction(0.2)   // friction adjusted to get dampened display: less bouncy bouncy ball [Swedish Chef, anyone?]
+    .friction(0.5)   // friction adjusted to get dampened display: less bouncy bouncy ball [Swedish Chef, anyone?]
       .start();
 
   hullg.selectAll("path.hull").remove();
